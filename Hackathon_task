@@ -1,0 +1,50 @@
+1.HTML code:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button id="btn">Click Here for Brands and Products</button>
+    <br><br>
+
+    <div id="output"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+2.JavaScript code:
+let getData = async () => {
+  try {
+    fetch("http://makeup-api.herokuapp.com/api/v1/products.json")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        let output = "";
+        data.forEach((user) => {
+          output += `<li> Brand:${user.brand}  <br> 
+                            Product: ${user.name}   <br>  
+                            Price: ${user.price} ${user.price_sign}<br>
+                            Description: ${user.description}<br>
+                            <a href="user.product_link">
+<img src= user.image_link  style="width:42px;height:42px;">
+</a>
+</li> `;
+        });
+        document.getElementById("output").innerHTML = output;
+      });
+  } catch (err) {
+    document.getElementById("output").innerHTML = err;
+  }
+};
+
+document.getElementById("btn").addEventListener("click", getData);
+
+3.CSS code:
+body{
+    background-color: aqua;
+}
